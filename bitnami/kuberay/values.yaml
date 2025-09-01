@@ -90,8 +90,8 @@ diagnosticMode:
 ## @param rayImage.debug Enable Kuberay Ray debug mode
 ##
 rayImage:
-  registry: docker.io
-  repository: bitnami/ray
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/ray
   tag: 2.49.0-debian-12-r0
   digest: ""
   ## Specify a imagePullPolicy
@@ -126,8 +126,8 @@ operator:
   ## @param operator.image.debug Enable Kuberay Operator image debug mode
   ##
   image:
-    registry: docker.io
-    repository: bitnami/kuberay-operator
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/kuberay-operator
     tag: 1.4.2-debian-12-r2
     digest: ""
     ## Specify a imagePullPolicy
@@ -780,8 +780,8 @@ apiserver:
   ## @param apiserver.image.debug Enable Kuberay API Server image debug mode
   ##
   image:
-    registry: docker.io
-    repository: bitnami/kuberay-apiserver
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/kuberay-apiserver
     tag: 1.4.2-debian-12-r2
     digest: ""
     ## Specify a imagePullPolicy
