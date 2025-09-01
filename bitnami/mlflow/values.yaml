@@ -91,8 +91,8 @@ diagnosticMode:
 ## @param image.debug Enable mlflow image debug mode
 ##
 image:
-  registry: docker.io
-  repository: bitnami/mlflow
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/mlflow
   tag: 3.3.2-debian-12-r0
   digest: ""
   ## Specify a imagePullPolicy
@@ -120,8 +120,8 @@ image:
 ## @param gitImage.pullSecrets Specify docker-registry secret names as an array
 ##
 gitImage:
-  registry: docker.io
-  repository: bitnami/git
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/git
   tag: 2.51.0-debian-12-r0
   digest: ""
   pullPolicy: IfNotPresent
@@ -1220,8 +1220,8 @@ volumePermissions:
   ## @param volumePermissions.image.pullSecrets OS Shell + Utility image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/os-shell
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/os-shell
     tag: 12-debian-12-r51
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -1269,8 +1269,8 @@ waitContainer:
   ## @param waitContainer.image.digest Init container wait-container image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
   ##
   image:
-    registry: docker.io
-    repository: bitnami/os-shell
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/os-shell
     tag: 12-debian-12-r51
     digest: ""
     ## @param waitContainer.image.pullPolicy Init container wait-container image pull policy
