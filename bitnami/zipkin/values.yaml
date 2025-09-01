@@ -118,8 +118,8 @@ javaOpts: ""
 ## @param image.debug Enable zipkin image debug mode
 ##
 image:
-  registry: docker.io
-  repository: bitnami/zipkin
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/zipkin
   tag: 3.5.1-debian-12-r5
   digest: ""
   ## Specify a imagePullPolicy
@@ -695,8 +695,8 @@ defaultInitContainers:
     ## @param defaultInitContainers.waitForCassandra.image.debug Enable debug output
     ##
     image:
-      registry: docker.io
-      repository: bitnami/cassandra
+      registry: registry.app-catalog.vmware.com
+      repository: eam/prd/containers/verified/common/minideb-bookworm/cassandra
       tag: 5.0.5-debian-12-r7
       pullPolicy: IfNotPresent
       pullSecrets: []
