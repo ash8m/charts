@@ -78,8 +78,8 @@ diagnosticMode:
 ## @param image.pullSecrets Specify docker-registry secret names as an array
 ##
 image:
-  registry: docker.io
-  repository: bitnami/kiam
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/kiam
   tag: 4.2.0-debian-12-r70
   digest: ""
   ## Specify a imagePullPolicy
