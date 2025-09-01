@@ -92,8 +92,8 @@ diagnosticMode:
 ## @param image.debug Enable image debug mode
 ##
 image:
-  registry: docker.io
-  repository: bitnami/kong
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/kong
   tag: 3.9.1-debian-12-r10
   digest: ""
   ## Specify a imagePullPolicy
@@ -674,8 +674,8 @@ ingressController:
   ## @param ingressController.image.pullSecrets Specify docker-registry secret names as an array
   ##
   image:
-    registry: docker.io
-    repository: bitnami/kong-ingress-controller
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/kong-ingress-controller
     tag: 3.5.1-debian-12-r3
     digest: ""
     ## Specify a imagePullPolicy
