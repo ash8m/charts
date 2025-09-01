@@ -185,8 +185,8 @@ javaOptions: ""
 ## @param image.debug Enable JanusGraph image debug mode
 ##
 image:
-  registry: docker.io
-  repository: bitnami/janusgraph
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/janusgraph
   tag: 1.1.0-debian-12-r21
   digest: ""
   ## Specify a imagePullPolicy
@@ -642,8 +642,8 @@ metrics:
   ## @param metrics.image.pullSecrets Specify docker-registry secret names as an array
   ##
   image:
-    registry: docker.io
-    repository: bitnami/jmx-exporter
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/jmx-exporter
     tag: 1.4.0-debian-12-r0
     digest: ""
     ## Specify a imagePullPolicy
@@ -844,8 +844,8 @@ volumePermissions:
   ## @param volumePermissions.image.pullSecrets OS Shell + Utility image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/os-shell
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/os-shell
     tag: 12-debian-12-r51
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
