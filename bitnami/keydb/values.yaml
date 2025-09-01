@@ -90,8 +90,8 @@ diagnosticMode:
 ## @param image.debug Enable KeyDB image debug mode
 ##
 image:
-  registry: docker.io
-  repository: bitnami/keydb
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/keydb
   tag: 6.3.4-debian-12-r24
   digest: ""
   ## Specify a imagePullPolicy
@@ -1195,8 +1195,8 @@ metrics:
   ## @param metrics.image.pullSecrets Redis Exporter image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/redis-exporter
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/redis-exporter
     tag: 1.76.0-debian-12-r0
     digest: ""
     pullPolicy: IfNotPresent
@@ -1485,8 +1485,8 @@ volumePermissions:
   ## @param volumePermissions.image.pullSecrets OS Shell + Utility image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/os-shell
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/os-shell
     tag: 12-debian-12-r51
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
