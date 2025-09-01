@@ -77,8 +77,8 @@ operator:
   ## @param operator.image.debug Enable cloudnative-pg Operator image debug mode
   ##
   image:
-    registry: docker.io
-    repository: bitnami/cloudnative-pg
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/cloudnative-pg
     tag: 1.27.0-debian-12-r1
     digest: ""
     ## Specify a imagePullPolicy
@@ -104,8 +104,8 @@ operator:
   ## @param operator.postgresqlImage.digest PostgreSQL image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
   ##
   postgresqlImage:
-    registry: docker.io
-    repository: bitnami/postgresql
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/postgresql
     tag: 17.6.0-debian-12-r4
     digest: ""
   ## @param operator.replicaCount Number of cloudnative-pg Operator replicas to deploy
@@ -708,8 +708,8 @@ pluginBarmanCloud:
   ## @param pluginBarmanCloud.image.debug Enable plugin-barman-cloud image debug mode
   ##
   image:
-    registry: docker.io
-    repository: bitnami/plugin-barman-cloud
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/plugin-barman-cloud
     tag: 0.6.0-debian-12-r0
     digest: ""
     ## Specify a imagePullPolicy
@@ -735,8 +735,8 @@ pluginBarmanCloud:
   ## @param pluginBarmanCloud.sidecarImage.digest plugin-barman-cloud-sidecar image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
   ##
   sidecarImage:
-    registry: docker.io
-    repository: bitnami/plugin-barman-cloud-sidecar
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/plugin-barman-cloud-sidecar
     tag: 0.6.0-debian-12-r0
     digest: ""
   ## @param pluginBarmanCloud.replicaCount Number of plugin-barman-cloud replicas to deploy
