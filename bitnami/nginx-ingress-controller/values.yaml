@@ -68,9 +68,9 @@ clusterDomain: cluster.local
 ## @param image.pullSecrets Specify docker-registry secret names as an array
 ##
 image:
-  registry: docker.io
-  repository: bitnami/nginx-ingress-controller
-  tag: 1.13.1-debian-12-r1
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/nginx-ingress-controller
+  tag: 1.13.2-debian-12-r1
   digest: ""
   ## Specify a imagePullPolicy
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
@@ -535,8 +535,8 @@ defaultBackend:
   ## @param defaultBackend.image.pullSecrets Specify docker-registry secret names as an array
   ##
   image:
-    registry: docker.io
-    repository: bitnami/nginx
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/nginx
     tag: 1.29.1-debian-12-r0
     digest: ""
     ## Specify a imagePullPolicy
