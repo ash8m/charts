@@ -72,8 +72,8 @@ extraDeploy: []
 ## @param image.debug Enable Sealed Secrets image debug mode
 ##
 image:
-  registry: docker.io
-  repository: bitnami/sealed-secrets-controller
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/sealed-secrets-controller
   tag: 0.31.0-debian-12-r0
   digest: ""
   ## Specify a imagePullPolicy
