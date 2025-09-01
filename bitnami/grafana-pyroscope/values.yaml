@@ -74,8 +74,8 @@ pyroscope:
   ## @param pyroscope.image.debug Specify if debug values should be set
   ##
   image:
-    registry: docker.io
-    repository: bitnamiprem/grafana-pyroscope
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/grafana-pyroscope
     tag: 1.14.1-debian-12-r0
     digest: ""
     ## Specify a imagePullPolicy
@@ -4285,8 +4285,8 @@ defaultInitContainers:
     ## @param defaultInitContainers.volumePermissions.image.pullSecrets "volume-permissions" init-containers' image pull secrets
     ##
     image:
-      registry: docker.io
-      repository: bitnami/os-shell
+      registry: registry.app-catalog.vmware.com
+      repository: eam/prd/containers/verified/common/minideb-bookworm/os-shell
       tag: 12-debian-12-r51
       digest: ""
       pullPolicy: IfNotPresent
