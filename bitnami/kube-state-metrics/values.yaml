@@ -124,8 +124,8 @@ serviceAccount:
 ## @param image.pullSecrets Specify docker-registry secret names as an array
 ##
 image:
-  registry: docker.io
-  repository: bitnami/kube-state-metrics
+  registry: registry.app-catalog.vmware.com
+  repository: eam/prd/containers/verified/common/minideb-bookworm/kube-state-metrics
   tag: 2.16.0-debian-12-r5
   digest: ""
   ## Specify a imagePullPolicy
