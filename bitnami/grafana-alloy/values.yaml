@@ -273,8 +273,8 @@ alloy:
 ## @param alloy.image.pullSecrets Grafana Alloy image pull secrets
 ##
   image:
-    registry: docker.io
-    repository: bitnami/grafana-alloy
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/grafana-alloy
     tag: 1.10.2-debian-12-r0
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -479,8 +479,8 @@ configReloader:
   ## @param configReloader.image.pullSecrets ConfigMap Reload image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/configmap-reload
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/configmap-reload
     tag: 0.15.0-debian-12-r12
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
