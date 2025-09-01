@@ -85,8 +85,8 @@ loki:
   ## @param loki.image.pullSecrets Grafana Loki image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/grafana-loki
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/grafana-loki
     tag: 3.5.3-debian-12-r2
     digest: ""
     ## Specify a imagePullPolicy
@@ -741,8 +741,8 @@ gateway:
   ## @param gateway.image.debug Enable debugging in the initialization process
   ##
   image:
-    registry: docker.io
-    repository: bitnami/nginx
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/nginx
     tag: 1.29.1-debian-12-r0
     digest: ""
     ## Specify a imagePullPolicy
@@ -4540,9 +4540,9 @@ volumePermissions:
   ## @param volumePermissions.image.pullSecrets OS Shell + Utility image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/os-shell
-    tag: 12-debian-12-r50
+    registry: registry.app-catalog.vmware.com
+    repository: eam/prd/containers/verified/common/minideb-bookworm/os-shell
+    tag: 12-debian-12-r51
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
