@@ -6,7 +6,7 @@ annotations:
     - name: consul
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/consul:1.21.4-debian-12-r1
     - name: consul-exporter
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/consul-exporter:0.13.0-debian-12-r29
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/consul-exporter:0.13.0-debian-12-r30
     - name: os-shell
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/os-shell:12-debian-12-r51
   licenses: Apache-2.0
@@ -33,4 +33,4 @@ maintainers:
 name: consul
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/consul
-version: 11.4.34
+version: 11.4.35
