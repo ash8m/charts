@@ -4,7 +4,7 @@
 annotations:
   images: |
     - name: argo-cd
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/argo-cd:3.1.1-debian-12-r0
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/argo-cd:3.1.1-debian-12-r1
     - name: dex
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/dex:2.44.0-debian-12-r0
     - name: os-shell
@@ -39,4 +39,4 @@ maintainers:
 name: argo-cd
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/argo-cd
-version: 11.0.3
+version: 11.0.4
