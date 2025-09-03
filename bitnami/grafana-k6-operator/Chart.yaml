@@ -6,7 +6,7 @@ annotations:
     - name: grafana-k6
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/grafana-k6:1.2.3-debian-12-r0
     - name: grafana-k6-operator
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/grafana-k6-operator:0.0.23-debian-12-r1
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/grafana-k6-operator:0.0.23-debian-12-r2
     - name: os-shell
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/os-shell:12-debian-12-r51
   licenses: Apache-2.0
@@ -34,4 +34,4 @@ maintainers:
 name: grafana-k6-operator
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/grafana-k6-operator
-version: 1.0.13
+version: 1.0.14
