@@ -4,7 +4,7 @@
 annotations:
   images: |
     - name: cilium
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/cilium:1.18.1-debian-12-r4
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/cilium:1.18.1-debian-12-r5
     - name: cilium-operator
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/cilium-operator:1.18.1-debian-12-r1
     - name: cilium-proxy
@@ -53,4 +53,4 @@ sources:
 - https://github.com/bitnami/containers/tree/main/bitnami/hubble-relay
 - https://github.com/bitnami/containers/tree/main/bitnami/hubble-ui
 - https://github.com/bitnami/containers/tree/main/bitnami/hubble-ui-backend
-version: 3.1.14
+version: 3.1.15
