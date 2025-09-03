@@ -6,7 +6,7 @@ annotations:
     - name: acmesolver
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/acmesolver:1.18.2-debian-12-r6
     - name: cainjector
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/cainjector:1.18.2-debian-12-r5
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/cainjector:1.18.2-debian-12-r6
     - name: cert-manager
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/cert-manager:1.18.2-debian-12-r5
     - name: cert-manager-webhook
@@ -36,4 +36,4 @@ maintainers:
 name: cert-manager
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/cert-manager
-version: 1.5.17
+version: 1.5.18
