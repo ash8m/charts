@@ -6,7 +6,7 @@ annotations:
     - name: apache
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/apache:2.4.65-debian-12-r2
     - name: apache-exporter
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/apache-exporter:1.0.10-debian-12-r55
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/apache-exporter:1.0.10-debian-12-r56
     - name: git
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/git:2.51.0-debian-12-r0
   licenses: Apache-2.0
@@ -37,4 +37,4 @@ maintainers:
 name: apache
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/apache
-version: 11.4.31
+version: 11.4.32
