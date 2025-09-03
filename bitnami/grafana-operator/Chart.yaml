@@ -6,7 +6,7 @@ annotations:
     - name: grafana
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/grafana:12.1.1-debian-12-r1
     - name: grafana-operator
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/grafana-operator:5.19.4-debian-12-r2
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/grafana-operator:5.19.4-debian-12-r3
   licenses: Apache-2.0
   tanzuCategory: application
 apiVersion: v2
@@ -31,4 +31,4 @@ maintainers:
 name: grafana-operator
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/grafana-operator
-version: 4.9.39
+version: 4.9.40
