@@ -16,7 +16,7 @@ annotations:
     - name: harbor-registry
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/harbor-registry:2.13.2-debian-12-r3
     - name: harbor-registryctl
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/harbor-registryctl:2.13.2-debian-12-r3
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/harbor-registryctl:2.13.2-debian-12-r4
     - name: nginx
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/nginx:1.29.1-debian-12-r0
     - name: os-shell
@@ -55,4 +55,4 @@ maintainers:
 name: harbor
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/harbor
-version: 27.0.9
+version: 27.0.10
