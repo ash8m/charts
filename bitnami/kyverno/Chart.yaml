@@ -4,37 +4,38 @@
 annotations:
   images: |
     - name: kyverno
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno:1.15.1-debian-12-r0
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno:1.15.1-debian-12-r1
     - name: kyverno-background-controller
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-background-controller:1.15.1-debian-12-r0
-    - name: kyverno-reports-controller
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-reports-controller:1.15.1-debian-12-r0
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-background-controller:1.15.1-debian-12-r1
     - name: kyverno-cleanup-controller
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-cleanup-controller:1.15.1-debian-12-r0
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-cleanup-controller:1.15.1-debian-12-r1
+    - name: kyverno-reports-controller
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-reports-controller:1.15.1-debian-12-r1
   licenses: Apache-2.0
   tanzuCategory: clusterUtility
 apiVersion: v2
 appVersion: 1.15.1
 dependencies:
-  - name: common
-    repository: oci://registry-1.docker.io/bitnamicharts
-    tags:
-      - bitnami-common
-    version: 2.x.x
-  - name: kyverno-crds
-    repository: file://./charts/kyverno-crds
-    version: 0.x.x
-description: Kyverno is a Kubernetes-native policy engine that automates security, compliance, and resource validation using declarative YAML policies.
+- name: common
+  repository: oci://registry-1.docker.io/bitnamicharts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+- name: kyverno-crds
+  repository: file://./charts/kyverno-crds
+  version: 0.x.x
+description: Kyverno is a Kubernetes-native policy engine that automates security,
+  compliance, and resource validation using declarative YAML policies
 home: https://bitnami.com
 icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/kyverno/img/kyverno-stack-220x234.png
 keywords:
-  - kyverno
-  - policy
-  - infrastructure
+- kyverno
+- policy
+- infrastructure
 maintainers:
-  - name: Broadcom, Inc. All Rights Reserved.
-    url: https://github.com/bitnami/charts-private
+- name: Broadcom, Inc. All Rights Reserved.
+  url: https://github.com/bitnami/charts-private
 name: kyverno
 sources:
-  - https://github.com/bitnami/charts-private/tree/main/bitnami/kyverno
-version: 0.1.0
+- https://github.com/bitnami/charts-private/tree/main/bitnami/kyverno
+version: 0.1.1

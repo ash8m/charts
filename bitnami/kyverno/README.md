@@ -2,9 +2,9 @@
 
 # Bitnami package for Kyverno
 
-Kyverno is a Kubernetes-native policy engine that automates security, compliance, and resource validation using declarative YAML policies.
+Kyverno is a Kubernetes-native policy engine that automates security, compliance, and resource validation using declarative YAML policies
 
-[Overview of Kyverno](https://kyverno.io)
+[Overview of Kyverno](https://kyverno.io/)
 
 Trademarks: This software listing is packaged by Bitnami. The respective trademarks mentioned in the offering are owned by the respective companies, and use of them does not imply any affiliation or endorsement.
 
