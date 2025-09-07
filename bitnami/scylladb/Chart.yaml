@@ -4,9 +4,9 @@
 annotations:
   images: |
     - name: os-shell
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/os-shell:12-debian-12-r51
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/os-shell:12-debian-12-r52
     - name: scylladb
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/scylladb:2025.2.2-debian-12-r2
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/scylladb:2025.2.2-debian-12-r3
   licenses: Apache-2.0
   tanzuCategory: service
 apiVersion: v2
@@ -32,4 +32,4 @@ maintainers:
 name: scylladb
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/scylladb
-version: 5.0.8
+version: 5.0.9
