@@ -1,0 +1,140 @@
+{{- /*
+Copyright Broadcom, Inc. All Rights Reserved.
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{- if .Values.rbac.create }}
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRole
+metadata:
+  name: {{ printf "%s-watched" (include "common.names.fullname.namespace" .) }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" .Values.commonLabels "context" .) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: operator
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" .) | nindent 4 }}
+  {{- end }}
+rules:
+  # Resources in this role are being watched by the operator. When operator is deployed as cluster-wide, these permissions
+  # need to be granted to the operator on a cluster wide level as well, even if the operands will be deployed only in
+  # few of the namespaces in given cluster. This is required to set up the Kubernetes watches and informers.
+  # Note: The rights included in this role might change in the future
+  - apiGroups:
+      - ""
+    resources:
+      # The cluster operator needs to access and delete pods, this is to allow it to monitor pod health and coordinate rolling updates
+      - pods
+    verbs:
+      - watch
+      - list
+  - apiGroups:
+      - "kafka.strimzi.io"
+    resources:
+      # The Cluster Operator operates the Strimzi custom resources
+      - kafkas
+      - kafkanodepools
+      - kafkaconnects
+      - kafkaconnectors
+      - kafkabridges
+      - kafkamirrormaker2s
+      - kafkarebalances
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - patch
+      - update
+  - apiGroups:
+      - "kafka.strimzi.io"
+    resources:
+      # The Cluster Operator needs to manage the status of the Strimzi custom resources
+      - kafkas/status
+      - kafkanodepools/status
+      - kafkaconnects/status
+      - kafkaconnectors/status
+      - kafkabridges/status
+      - kafkamirrormaker2s/status
+      - kafkarebalances/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - "core.strimzi.io"
+    resources:
+      # The cluster operator uses StrimziPodSets to manage the Kafka, Kafka Connect, and Kafka MirrorMaker 2 pods
+      - strimzipodsets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - "core.strimzi.io"
+    resources:
+      # The Cluster Operator needs to manage the status of the StrimziPodSet custom resource
+      - strimzipodsets/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - "kafka.strimzi.io"
+    resources:
+      # The Cluster Operator needs deletion for KafkaRebalance only (during auto-rebalancing)
+      - kafkarebalances
+    verbs:
+      - delete
+  {{- if .Values.rbac.watched.rules }}
+  {{- include "common.tplvalues.render" ( dict "value" .Values.rbac.watched.rules "context" .) | nindent 2 }}
+  {{- end }}
+{{- if .Values.watchAllNamespaces }}
+---
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ printf "%s-watched" (include "common.names.fullname.namespace" .) }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" .Values.commonLabels "context" .) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: operator
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" .) | nindent 4 }}
+  {{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ printf "%s-watched" (include "common.names.fullname.namespace" .) }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "strimzi.serviceAccountName" . }}
+    namespace: {{ include "common.names.namespace" . | quote }}
+{{- else }}
+{{- $watchNamespaces := default (list (include "common.names.namespace" .)) .Values.watchNamespaces }}
+{{- range $namespace := $watchNamespaces }}
+---
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" $ }}
+kind: RoleBinding
+metadata:
+  name: {{ printf "%s-watched" (include "common.names.fullname" $) }}
+  namespace: {{ $namespace | quote }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" $.Values.commonLabels "context" $) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: operator
+  {{- if $.Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" $.Values.commonAnnotations "context" $) | nindent 4 }}
+  {{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ printf "%s-watched" (include "common.names.fullname.namespace" $) }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "strimzi.serviceAccountName" $ }}
+    namespace: {{ include "common.names.namespace" $ | quote }}
+{{- end }}
+{{- end }}
+{{- end }}

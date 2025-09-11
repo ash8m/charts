@@ -1,0 +1,64 @@
+{{- /*
+Copyright Broadcom, Inc. All Rights Reserved.
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{- if .Values.rbac.create }}
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRole
+metadata:
+  name: {{ printf "%s-leader-election" (include "common.names.fullname.namespace" .) }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" .Values.commonLabels "context" .) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: operator
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" .) | nindent 4 }}
+  {{- end }}
+rules:
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      # The cluster operator needs to access and manage leases for leader election
+      # The "create" verb cannot be used with "resourceNames"
+      - leases
+    verbs:
+      - create
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      # The cluster operator needs to access and manage leases for leader election
+      - leases
+    resourceNames:
+      # The default RBAC files give the operator only access to the Lease resource names strimzi-cluster-operator
+      # If you want to use another resource name or resource namespace, you have to configure the RBAC resources accordingly
+      - strimzi-cluster-operator
+    verbs:
+      - get
+      - list
+      - watch
+      - delete
+      - patch
+      - update
+  {{- if .Values.rbac.leaderElection.rules }}
+  {{- include "common.tplvalues.render" ( dict "value" .Values.rbac.leaderElection.rules "context" .) | nindent 2 }}
+  {{- end }}
+---
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ printf "%s-leader-election" (include "common.names.fullname.namespace" .) }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" .Values.commonLabels "context" .) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: operator
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" .) | nindent 4 }}
+  {{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ printf "%s-leader-election" (include "common.names.fullname.namespace" .) }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "strimzi.serviceAccountName" . }}
+    namespace: {{ include "common.names.namespace" . | quote }}
+{{- end }}

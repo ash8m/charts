@@ -1,0 +1,115 @@
+{{- /*
+Copyright Broadcom, Inc. All Rights Reserved.
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{- if .Values.rbac.create }}
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRole
+metadata:
+  name: {{ printf "%s-entity-operator" (include "common.names.fullname.namespace" .) }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" .Values.commonLabels "context" .) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: entity-operator
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" .) | nindent 4 }}
+  {{- end }}
+rules:
+  - apiGroups:
+      - "kafka.strimzi.io"
+    resources:
+      # The Entity Operator contains the Topic Operator which needs to access and manage KafkaTopic resources
+      - kafkatopics
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - patch
+      - update
+      - delete
+  - apiGroups:
+      - "kafka.strimzi.io"
+    resources:
+      # The Entity Operator contains the User Operator which needs to access and manage KafkaUser resources
+      - kafkausers
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - patch
+      - update
+  - apiGroups:
+      - "kafka.strimzi.io"
+    resources:
+      # The Entity Operator contains the Topic Operator which needs to access and manage KafkaTopic resources
+      - kafkatopics/status
+      # The Entity Operator contains the User Operator which needs to access and manage KafkaUser resources
+      - kafkausers/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      # The entity operator user-operator needs to access and manage secrets to store generated credentials
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  {{- if .Values.rbac.entityOperator.rules }}
+  {{- include "common.tplvalues.render" ( dict "value" .Values.rbac.entityOperator.rules "context" .) | nindent 2 }}
+  {{- end }}
+{{- if .Values.watchAllNamespaces }}
+---
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ printf "%s-entity-operator" (include "common.names.fullname.namespace" .) }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" .Values.commonLabels "context" .) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: entity-operator
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" .) | nindent 4 }}
+  {{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ printf "%s-entity-operator" (include "common.names.fullname.namespace" .) }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "strimzi.serviceAccountName" . }}
+    namespace: {{ include "common.names.namespace" . | quote }}
+{{- else }}
+{{- $watchNamespaces := default (list (include "common.names.namespace" .)) .Values.watchNamespaces }}
+{{- range $namespace := $watchNamespaces }}
+---
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" $ }}
+kind: RoleBinding
+metadata:
+  name: {{ printf "%s-entity-operator" (include "common.names.fullname" $) }}
+  namespace: {{ $namespace | quote }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" $.Values.commonLabels "context" $) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: entity-operator
+  {{- if $.Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" $.Values.commonAnnotations "context" $) | nindent 4 }}
+  {{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ printf "%s-entity-operator" (include "common.names.fullname.namespace" $) }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "strimzi.serviceAccountName" $ }}
+    namespace: {{ include "common.names.namespace" $ | quote }}
+{{- end }}
+{{- end }}
+{{- end }}

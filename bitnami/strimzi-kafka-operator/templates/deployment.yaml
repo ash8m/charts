@@ -1,0 +1,235 @@
+{{- /*
+Copyright Broadcom, Inc. All Rights Reserved.
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ template "common.names.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" .Values.commonLabels "context" .) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: operator
+  {{- if or .Values.deploymentAnnotations .Values.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" (dict "values" (list .Values.deploymentAnnotations .Values.commonAnnotations) "context" .) }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" $annotations "context" .) | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if not .Values.autoscaling.hpa.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  {{- if .Values.updateStrategy }}
+  strategy: {{- toYaml .Values.updateStrategy | nindent 4 }}
+  {{- end }}
+  {{- $podLabels := include "common.tplvalues.merge" (dict "values" (list .Values.podLabels .Values.commonLabels) "context" .) }}
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" (dict "customLabels" $podLabels "context" .) | nindent 6 }}
+      app.kubernetes.io/part-of: strimzi-kafka-operator
+      app.kubernetes.io/component: operator
+  template:
+    metadata:
+      annotations:
+        {{- if not .Values.existingLogConfigmap }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" .) | nindent 8 }}
+        {{- end }}
+      labels: {{- include "common.labels.standard" (dict "customLabels" $podLabels "context" .) | nindent 8 }}
+        app.kubernetes.io/part-of: strimzi-kafka-operator
+        app.kubernetes.io/component: operator
+    spec:
+      {{- include "strimzi.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ template "strimzi.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
+      {{- if .Values.hostAliases }}
+      hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" .) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.affinity "context" .) | nindent 8 }}
+      {{- else }}
+      affinity:
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "operator" "customLabels" $podLabels "context" .) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "operator" "customLabels" $podLabels "context" .) | nindent 10 }}
+        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" .) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" .) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName | quote }}
+      {{- end }}
+      {{- if .Values.schedulerName }}
+      schedulerName: {{ .Values.schedulerName | quote }}
+      {{- end }}
+      {{- if .Values.topologySpreadConstraints }}
+      topologySpreadConstraints: {{- include "common.tplvalues.render" (dict "value" .Values.topologySpreadConstraints "context" .) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.podSecurityContext.enabled }}
+      securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- end }}
+      {{- if .Values.initContainers }}
+      initContainers: {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" .) | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: operator
+          image: {{ template "strimzi.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.containerSecurityContext "context" .) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.command }}
+          command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" .) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.args }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" .) | nindent 12 }}
+          {{- end }}
+          env:
+            - name: STRIMZI_NAMESPACE
+            {{- if .Values.watchAllNamespaces }}
+              value: "*"
+            {{- else }}
+              {{- $watchNamespaces := default (list (include "common.names.namespace" .)) .Values.watchNamespaces }}
+              value: {{ join "," $watchNamespaces | quote }}
+            {{- end }}
+            - name: STRIMZI_OPERATOR_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: KUBERNETES_SERVICE_DNS_DOMAIN
+              value: {{ .Values.clusterDomain | quote }}
+            - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
+              value: {{ template "strimzi.kafka.image" (dict "version" "4.0.0" "context" .) }}
+            - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
+              value: {{ template "strimzi.kafka.image" (dict "version" "4.0.0" "context" .) }}
+            # TODO: remove hardcoded references below
+            - name: STRIMZI_KAFKA_IMAGES
+              value: |
+                3.9.0={{ template "strimzi.kafka.image" (dict "version" "3.9.0" "context" .) }}
+                3.9.1={{ template "strimzi.kafka.image" (dict "version" "3.9.1" "context" .) }}
+                4.0.0={{ template "strimzi.kafka.image" (dict "version" "4.0.0" "context" .) }}
+            - name: STRIMZI_KAFKA_CONNECT_IMAGES
+              value: |
+                3.9.0={{ template "strimzi.kafka.image" (dict "version" "3.9.0" "context" .) }}
+                3.9.1={{ template "strimzi.kafka.image" (dict "version" "3.9.1" "context" .) }}
+                4.0.0={{ template "strimzi.kafka.image" (dict "version" "4.0.0" "context" .) }}
+            - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
+              value: |
+                3.9.0={{ template "strimzi.kafka.image" (dict "version" "3.9.0" "context" .) }}
+                3.9.1={{ template "strimzi.kafka.image" (dict "version" "3.9.1" "context" .) }}
+                4.0.0={{ template "strimzi.kafka.image" (dict "version" "4.0.0" "context" .) }}
+            - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
+              value: {{ template "strimzi.image" . }}
+            - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
+              value: {{ template "strimzi.image" . }}
+            - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
+              value: {{ template "strimzi.image" . }}
+            - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
+              value: {{ template "strimzi.kafkaBridge.image" . }}
+            - name: STRIMZI_DEFAULT_KANIKO_EXECUTOR_IMAGE
+              value: {{ template "strimzi.kaniko.image" . }}
+            - name: STRIMZI_IMAGE_PULL_SECRETS
+              value: {{ include "strimzi.imagePullSecrets.string" . | quote }}
+            {{- if .Values.image.imagePullPolicy }}
+            - name: STRIMZI_IMAGE_PULL_POLICY
+              value: {{ .Values.image.imagePullPolicy }}
+            {{- end }}
+            - name: STRIMZI_LEADER_ELECTION_ENABLED
+              value: {{ ternary "true" "false" .Values.enableLeaderElection | quote }}
+            - name: STRIMZI_LEADER_ELECTION_LEASE_NAME
+              value: "strimzi-cluster-operator"
+            - name: STRIMZI_LEADER_ELECTION_LEASE_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: STRIMZI_LEADER_ELECTION_IDENTITY
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
+              value: {{ .Values.fullReconciliationIntervalMs | quote }}
+            - name: STRIMZI_OPERATION_TIMEOUT_MS
+              value: {{ .Values.operationTimeoutMs | quote }}
+            - name: STRIMZI_CONNECT_BUILD_TIMEOUT_MS
+              value: {{ .Values.connectBuildTimeoutMs | quote }}
+            - name: STRIMZI_FEATURE_GATES
+              value: {{ join "," .Values.featureGates | quote }}
+            {{- if .Values.extraEnvVars }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" .) | nindent 12 }}
+            {{- end }}
+          envFrom:
+            {{- if .Values.extraEnvVarsCM }}
+            - configMapRef:
+                name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsCM "context" .) }}
+            {{- end }}
+            {{- if .Values.extraEnvVarsSecret }}
+            - secretRef:
+                name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" .) }}
+            {{- end }}
+          {{- if .Values.resources }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          {{- else if ne .Values.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.resourcesPreset) | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPorts.http }}
+            {{- if .Values.extraContainerPorts }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.extraContainerPorts "context" .) | nindent 12 }}
+            {{- end }}
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customLivenessProbe "context" .) | nindent 12 }}
+          {{- else if .Values.livenessProbe.enabled }}
+          livenessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.livenessProbe "enabled") "context" .) | nindent 12 }}
+            httpGet:
+              path: /healthy
+              port: http
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customReadinessProbe "context" .) | nindent 12 }}
+          {{- else if .Values.readinessProbe.enabled }}
+          readinessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.readinessProbe "enabled") "context" .) | nindent 12 }}
+            httpGet:
+              path: /ready
+              port: http
+          {{- end }}
+          {{- if .Values.customStartupProbe }}
+          startupProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customStartupProbe "context" .) | nindent 12 }}
+          {{- else if .Values.startupProbe.enabled }}
+          startupProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.startupProbe "enabled") "context" .) | nindent 12 }}
+            httpGet:
+              path: /healthy
+              port: http
+          {{- end }}
+          {{- if .Values.lifecycleHooks }}
+          lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" .) | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: empty-dir
+              mountPath: /tmp
+              subPath: tmp-dir
+            - name: log-configuration
+              mountPath: /opt/bitnami/strimzi-kafka-operator/custom-config
+              readOnly: true
+          {{- if .Values.extraVolumeMounts }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" .) | nindent 12 }}
+          {{- end }}
+        {{- if .Values.sidecars }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.sidecars "context" .) | nindent 8 }}
+        {{- end }}
+      volumes:
+        - name: empty-dir
+          emptyDir: {}
+        - name: log-configuration
+          configMap:
+            name: {{ template "strimzi.configmap.name" . }}
+        {{- if .Values.extraVolumes }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" .) | nindent 8 }}
+        {{- end }}

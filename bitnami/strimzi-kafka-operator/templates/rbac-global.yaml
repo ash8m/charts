@@ -1,0 +1,71 @@
+{{- /*
+Copyright Broadcom, Inc. All Rights Reserved.
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{- if .Values.rbac.create }}
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRole
+metadata:
+  name: {{ printf "%s-global" (include "common.names.fullname.namespace" .) }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" .Values.commonLabels "context" .) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: operator
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" .) | nindent 4 }}
+  {{- end }}
+rules:
+  - apiGroups:
+      - "rbac.authorization.k8s.io"
+    resources:
+      # The cluster operator needs to create and manage cluster role bindings in the case of an install where a user
+      # has specified they want their cluster role bindings generated
+      - clusterrolebindings
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      # The cluster operator requires "get" permissions to view storage class details
+      # This is because only a persistent volume of a supported storage class type can be resized
+      - storageclasses
+    verbs:
+      - get
+  - apiGroups:
+      - ""
+    resources:
+      # The cluster operator requires "list" permissions to view all nodes in a cluster
+      # The listing is used to determine the node addresses when NodePort access is configured
+      # These addresses are then exposed in the custom resource states
+      - nodes
+    verbs:
+      - list
+  {{- if .Values.rbac.global.rules }}
+  {{- include "common.tplvalues.render" ( dict "value" .Values.rbac.global.rules "context" .) | nindent 2 }}
+  {{- end }}
+---
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ printf "%s-global" (include "common.names.fullname.namespace" .) }}
+  labels: {{- include "common.labels.standard" (dict "customLabels" .Values.commonLabels "context" .) | nindent 4 }}
+    app.kubernetes.io/part-of: strimzi-kafka-operator
+    app.kubernetes.io/component: operator
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" .) | nindent 4 }}
+  {{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ printf "%s-global" (include "common.names.fullname.namespace" .) }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "strimzi.serviceAccountName" . }}
+    namespace: {{ include "common.names.namespace" . | quote }}
+{{- end }}

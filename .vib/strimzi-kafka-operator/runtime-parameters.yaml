@@ -1,0 +1,94 @@
+
+podSecurityContext:
+  enabled: true
+  fsGroup: 1002
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1002
+logLevel: INFO
+containerPorts:
+  http: 8080
+metrics:
+  enabled: true
+  service:
+    port: 9090
+extraDeploy:
+# ref: https://strimzi.io/examples/latest/kafka/kafka-persistent.yaml
+- |
+  apiVersion: kafka.strimzi.io/v1beta2
+  kind: KafkaNodePool
+  metadata:
+    name: controller
+    namespace: {{ include "common.names.namespace" . | quote }}
+    labels:
+      strimzi.io/cluster: my-cluster
+  spec:
+    replicas: 3
+    roles:
+      - controller
+    storage:
+      type: jbod
+      volumes:
+        - id: 0
+          type: persistent-claim
+          size: 5Gi
+          kraftMetadata: shared
+          deleteClaim: false
+- |
+  apiVersion: kafka.strimzi.io/v1beta2
+  kind: KafkaNodePool
+  metadata:
+    name: broker
+    namespace: {{ include "common.names.namespace" . | quote }}
+    labels:
+      strimzi.io/cluster: my-cluster
+  spec:
+    replicas: 3
+    roles:
+      - broker
+    storage:
+      type: jbod
+      volumes:
+        - id: 0
+          type: persistent-claim
+          size: 5Gi
+          kraftMetadata: shared
+          deleteClaim: false
+- |
+  apiVersion: kafka.strimzi.io/v1beta2
+  kind: Kafka
+  metadata:
+    name: my-cluster
+    namespace: {{ include "common.names.namespace" . | quote }}
+    annotations:
+      strimzi.io/node-pools: enabled
+      strimzi.io/kraft: enabled
+  spec:
+    kafka:
+      version: 4.0.0
+      metadataVersion: 4.0-IV3
+      listeners:
+        - name: plain
+          port: 9092
+          type: internal
+          tls: false
+        - name: tls
+          port: 9093
+          type: internal
+          tls: true
+      config:
+        offsets.topic.replication.factor: 1
+        transaction.state.log.replication.factor: 1
+        transaction.state.log.min.isr: 1
+        default.replication.factor: 1
+        min.insync.replicas: 1
+- |
+  apiVersion: kafka.strimzi.io/v1beta2
+  kind: KafkaBridge
+  metadata:
+    name: my-bridge
+  spec:
+    replicas: 1
+    bootstrapServers: my-cluster-kafka-bootstrap:9092
+    http:
+      port: 8080
