@@ -4,12 +4,16 @@
 annotations:
   images: |
     - name: clickhouse
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/clickhouse:25.8.2-debian-12-r0
+      version: 25.8.2
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/clickhouse:25.8.2-debian-12-r2
     - name: clickhouse-keeper
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/clickhouse-keeper:25.8.2-debian-12-r0
+      version: 25.8.3
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/clickhouse-keeper:25.8.3-debian-12-r0
     - name: clickhouse-operator
+      version: 0.25.3
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/clickhouse-operator:0.25.3-debian-12-r2
     - name: clickhouse-operator-metrics-exporter
+      version: 0.25.3
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/clickhouse-operator-metrics-exporter:0.25.3-debian-12-r2
   licenses: Apache-2.0
 apiVersion: v2
@@ -37,4 +41,4 @@ name: clickhouse-operator
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/clickhouse-operator
 - https://github.com/bitnami/containers/tree/main/bitnami/clickhouse-operator
-version: 0.2.39
+version: 0.2.40
