@@ -26,3 +26,14 @@ for (const command of ['click']) {
 Cypress.Commands.overwrite('visit', (originalFn, url, options) => {
   return originalFn(`${BASE_URL}${url}`, options);
 });
+
+Cypress.on('uncaught:exception', (err) => {
+  // We expect an error "The user agent does not support public key credentials."
+  // when the browser does not support WebAuthn. This is expected in our tests
+  // as we are not testing WebAuthn functionality, so we ignore this error.
+  if (err.message.includes("The user agent does not support public key credentials.")) {
+    return false;
+  }
+  // we still want to ensure there are no other unexpected
+  // errors, so we let them fail the test
+})
