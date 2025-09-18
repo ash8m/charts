@@ -15,7 +15,7 @@ watch:
   # List of namespaces where ClickHouse Operator watches for events.
   # Concurrently running operators should watch on different namespaces.
   {{- if .Values.watchAllNamespaces }}
-  namespaces: ['*']
+  namespaces: [ "" ]
   {{- else }}
   namespaces:
   {{- if .Values.watchNamespaces }}
@@ -69,7 +69,7 @@ clickhouse:
     scheme: "auto"
     rootCA: ""
     secret:
-      namespace: {{ include "common.names.namespace" . | quote }}
+      namespace: ""
       name: {{ include "clickhouse-operator.secret.name" . | quote }}
     port: 8123
     timeouts:
