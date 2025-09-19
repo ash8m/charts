@@ -4,17 +4,21 @@
 annotations:
   images: |
     - name: kyverno
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno:1.15.1-debian-12-r1
+      version: 1.15.2
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno:1.15.2-debian-12-r0
     - name: kyverno-background-controller
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-background-controller:1.15.1-debian-12-r1
+      version: 1.15.2
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-background-controller:1.15.2-debian-12-r0
     - name: kyverno-cleanup-controller
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-cleanup-controller:1.15.1-debian-12-r1
+      version: 1.15.2
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-cleanup-controller:1.15.2-debian-12-r0
     - name: kyverno-reports-controller
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-reports-controller:1.15.1-debian-12-r1
+      version: 1.15.2
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kyverno-reports-controller:1.15.2-debian-12-r0
   licenses: Apache-2.0
   tanzuCategory: clusterUtility
 apiVersion: v2
-appVersion: 1.15.1
+appVersion: 1.15.2
 dependencies:
 - name: common
   repository: oci://registry.app-catalog.vmware.com/eam/prd/charts/verified/common/minideb-bookworm
@@ -38,4 +42,4 @@ maintainers:
 name: kyverno
 sources:
 - https://github.com/bitnami/charts-private/tree/main/bitnami/kyverno
-version: 0.1.1
+version: 0.1.2

@@ -266,9 +266,9 @@ As an alternative, use one of the preset configurations for pod affinity, pod an
 | `kyverno.features.registryClient.credentialHelpers`          | Set allowed credential helpers                                                                         | `[]`         |
 | `kyverno.features.ttlController.reconciliationInterval`      | Set TTL reconciliation interval                                                                        | `1m`         |
 | `kyverno.features.tuf.enabled`                               | Enable the TUF feature                                                                                 | `false`      |
-| `kyverno.features.tuf.root`                                  | Set path to TUF root                                                                                   | `nil`        |
-| `kyverno.features.tuf.rootRaw`                               | Set raw TUF root                                                                                       | `nil`        |
-| `kyverno.features.tuf.mirror`                                | Set TUF mirror                                                                                         | `nil`        |
+| `kyverno.features.tuf.root`                                  | Set path to TUF root                                                                                   | `""`         |
+| `kyverno.features.tuf.rootRaw`                               | Set raw TUF root                                                                                       | `""`         |
+| `kyverno.features.tuf.mirror`                                | Set TUF mirror                                                                                         | `""`         |
 
 ### Admission Controller Deployment Parameters
 
