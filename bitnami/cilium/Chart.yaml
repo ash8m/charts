@@ -28,12 +28,12 @@ appVersion: 1.18.2
 dependencies:
 - condition: etcd.enabled
   name: etcd
-  repository: oci://registry-1.docker.io/bitnamicharts
+  repository: oci://registry.app-catalog.vmware.com/eam/prd/charts/verified/common/minideb-bookworm
   tags:
   - cilium-database
   version: 12.x.x
 - name: common
-  repository: oci://registry-1.docker.io/bitnamicharts
+  repository: oci://registry.app-catalog.vmware.com/eam/prd/charts/verified/common/minideb-bookworm
   tags:
   - bitnami-common
   version: 2.x.x

@@ -11,7 +11,7 @@ Trademarks: This software listing is packaged by Bitnami. The respective tradema
 ## TL;DR
 
 ```console
-helm install my-release oci://registry-1.docker.io/bitnamichartsprem/telegraf
+helm install my-release oci://MY-OCI-REGISTRYprem/telegraf
 ```
 
 Looking to use Telegraf&trade; in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.

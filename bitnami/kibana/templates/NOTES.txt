@@ -15,7 +15,7 @@ APP VERSION: {{ .Chart.AppVersion }}
 
 Complete your Kibana deployment by running:
 
-  helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://registry-1.docker.io/bitnamicharts/kibana \
+  helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://MY-OCI-REGISTRY/kibana \
     --set elasticsearch.hosts[0]=YOUR_ES_HOST,elasticsearch.port=YOUR_ES_PORT
 
 Replacing "YOUR_ES_HOST" and "YOUR_ES_PORT" placeholders by the proper values of your Elasticsearch deployment.

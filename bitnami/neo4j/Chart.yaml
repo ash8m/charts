@@ -13,7 +13,7 @@ apiVersion: v2
 appVersion: 5.26.12
 dependencies:
 - name: common
-  repository: oci://registry-1.docker.io/bitnamicharts
+  repository: oci://registry.app-catalog.vmware.com/eam/prd/charts/verified/common/minideb-bookworm
   tags:
   - bitnami-common
   version: 2.x.x

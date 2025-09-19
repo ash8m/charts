@@ -18,7 +18,7 @@ APP VERSION: {{ .Chart.AppVersion }}
     inconsistencies in the configuration:
 
       kubectl scale --namespace {{ include "common.names.namespace" . }} statefulset {{ .Release.Name }}-master --replicas=0
-      helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://registry-1.docker.io/bitnamicharts/elasticsearch --reset-values --set master.masterOnly=false
+      helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://MY-OCI-REGISTRY/elasticsearch --reset-values --set master.masterOnly=false
 
     Please note that the master nodes should continue assuming all the roles
     (master.masterOnly: false) since there is shard data on the first replica.
@@ -61,7 +61,7 @@ APP VERSION: {{ .Chart.AppVersion }}
     As an alternative, you can specify "sysctlImage.enabled=true" to use a
     privileged initContainer to change those settings in the Kernel:
 
-      helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://registry-1.docker.io/bitnamicharts/elasticsearch --set sysctlImage.enabled=true
+      helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://MY-OCI-REGISTRY/elasticsearch --set sysctlImage.enabled=true
 
     Note that this requires the ability to run privileged containers, which is likely not
     the case on many secure clusters. To cover this use case, you can also set some parameters

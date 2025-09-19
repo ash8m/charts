@@ -14,10 +14,10 @@ appVersion: 1.24.6
 dependencies:
 - condition: postgresql.enabled
   name: postgresql
-  repository: oci://registry-1.docker.io/bitnamicharts
+  repository: oci://registry.app-catalog.vmware.com/eam/prd/charts/verified/common/minideb-bookworm
   version: 16.x.x
 - name: common
-  repository: oci://registry-1.docker.io/bitnamicharts
+  repository: oci://registry.app-catalog.vmware.com/eam/prd/charts/verified/common/minideb-bookworm
   tags:
   - bitnami-common
   version: 2.x.x

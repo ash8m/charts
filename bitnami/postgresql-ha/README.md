@@ -11,7 +11,7 @@ Trademarks: This software listing is packaged by Bitnami. The respective tradema
 ## TL;DR
 
 ```console
-helm install my-release oci://registry-1.docker.io/bitnamicharts/postgresql-ha
+helm install my-release oci://MY-OCI-REGISTRY/postgresql-ha
 ```
 
 Looking to use PostgreSQL HA in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
@@ -1074,7 +1074,7 @@ postgresql-repmgr 13:57:07.50 INFO  ==> ** Starting repmgrd **
 You will need to perform the following step first, and then continue with the upgrade:
 
 ```console
-$ helm upgrade mypg oci://registry-1.docker.io/bitnamicharts/postgresql-ha \
+$ helm upgrade mypg oci://MY-OCI-REGISTRY/postgresql-ha \
   --set postgresql.replicaCount=1 \
   --set postgresql.upgradeRepmgrExtension=true
 ```

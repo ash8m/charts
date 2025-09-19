@@ -11,7 +11,7 @@ InfluxDB&trade; is a trademark owned by InfluxData, which is not affiliated with
 ## TL;DR
 
 ```console
-helm install my-release oci://registry-1.docker.io/bitnamicharts/influxdb
+helm install my-release oci://MY-OCI-REGISTRY/influxdb
 ```
 
 Looking to use InfluxDB&trade; Core in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.

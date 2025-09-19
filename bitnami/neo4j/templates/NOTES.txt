@@ -33,7 +33,7 @@ host. To configure Neo4j with the URL of your service:
   {{- end }}
 2. Complete your Neo4J deployment by running:
 
-  helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://registry-1.docker.io/bitnamicharts/{{ .Chart.Name }} \
+  helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://MY-OCI-REGISTRY/{{ .Chart.Name }} \
     --set advertisedHost=$APP_HOST{{- if .Values.global }}{{- if .Values.global.imagePullSecrets }},global.imagePullSecrets={{ .Values.global.imagePullSecrets }}{{- end }}{{- end }}
 {{- else if .Values.diagnosticMode.enabled }}
 The chart has been deployed in diagnostic mode. All probes have been disabled and the command has been overwritten with:

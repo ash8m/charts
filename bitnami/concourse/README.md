@@ -9,7 +9,7 @@ Concourse is an automation system written in Go. It is most commonly used for CI
 ## TL;DR
 
 ```console
-helm install my-release oci://registry-1.docker.io/bitnamicharts/concourse
+helm install my-release oci://MY-OCI-REGISTRY/concourse
 ```
 
 Looking to use Concourse in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.

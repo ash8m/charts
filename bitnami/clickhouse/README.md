@@ -11,7 +11,7 @@ Trademarks: This software listing is packaged by Bitnami. The respective tradema
 ## TL;DR
 
 ```console
-helm install my-release oci://registry-1.docker.io/bitnamicharts/clickhouse
+helm install my-release oci://MY-OCI-REGISTRY/clickhouse
 ```
 
 > Tip: Did you know that this app is also available as a Kubernetes App on the Azure Marketplace? Kubernetes Apps are the easiest way to deploy Bitnami on AKS. Click [here](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/bitnami.clickhouse-cnab) to see the listing on Azure Marketplace.

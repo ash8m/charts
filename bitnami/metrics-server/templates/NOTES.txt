@@ -46,7 +46,7 @@ Option A:
 
   You complete your metrics-server release by running:
 
-  helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://registry-1.docker.io/bitnamicharts/metrics-server \
+  helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://MY-OCI-REGISTRY/metrics-server \
     --set apiService.create=true
 
 Option B:

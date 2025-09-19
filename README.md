@@ -10,7 +10,7 @@ Popular applications, provided by [Bitnami](https://bitnami.com), ready to launc
 ## TL;DR
 
 ```console
-helm install my-release oci://registry-1.docker.io/bitnamicharts/<chart>
+helm install my-release oci://MY-OCI-REGISTRY/<chart>
 ```
 
 ## ⚠️ Important Notice: Upcoming changes to the Bitnami Catalog
@@ -65,8 +65,8 @@ Please refer to the [Quick Start guide](https://helm.sh/docs/intro/quickstart/) 
 
 Useful Helm Client Commands:
 
-- Install a chart: `helm install my-release oci://registry-1.docker.io/bitnamicharts/<chart>`
-- Upgrade your application: `helm upgrade my-release oci://registry-1.docker.io/bitnamicharts/<chart>`
+- Install a chart: `helm install my-release oci://MY-OCI-REGISTRY/<chart>`
+- Upgrade your application: `helm upgrade my-release oci://MY-OCI-REGISTRY/<chart>`
 
 ## License
 

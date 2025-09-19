@@ -8,10 +8,10 @@ appVersion: %%UPSTREAM_PROJECT_VERSION%%
 dependencies:
   - condition: SUBCHART_NAME.enabled
     name: SUBCHART_NAME
-    repository: oci://registry-1.docker.io/bitnamichartsprem
+    repository: oci://registry.app-catalog.vmware.com/eam/prd/charts/verified/common/minideb-bookwormprem
     version: %%MAJOR_SUBCHART_VERSION_(A.X.X)%%
   - name: common
-    repository: oci://registry-1.docker.io/bitnamichartsprem
+    repository: oci://registry.app-catalog.vmware.com/eam/prd/charts/verified/common/minideb-bookwormprem
     tags:
       - bitnami-common
     version: 2.x.x

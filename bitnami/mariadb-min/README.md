@@ -11,7 +11,7 @@ Trademarks: This software listing is packaged by Bitnami. The respective tradema
 ## TL;DR
 
 ```console
-helm install my-release oci://registry-1.docker.io/bitnamichartsprem/mariadb-min
+helm install my-release oci://MY-OCI-REGISTRYprem/mariadb-min
 ```
 
 ## Introduction

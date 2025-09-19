@@ -11,7 +11,7 @@ Disclaimer: The respective trademarks mentioned in the offering are owned by the
 ## TL;DR
 
 ```console
-helm install my-release oci://registry-1.docker.io/bitnamicharts/moodle
+helm install my-release oci://MY-OCI-REGISTRY/moodle
 ```
 
 Looking to use Bitnami LMS powered by Moodle&trade; LMS in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.

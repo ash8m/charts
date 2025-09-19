@@ -9,7 +9,7 @@ WordPress is the world's most popular blogging and content management platform. 
 ## TL;DR
 
 ```console
-helm install my-release oci://registry-1.docker.io/bitnamicharts/wordpress
+helm install my-release oci://MY-OCI-REGISTRY/wordpress
 ```
 
 Looking to use WordPress in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.

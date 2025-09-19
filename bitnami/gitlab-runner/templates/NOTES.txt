@@ -15,14 +15,14 @@ APP VERSION: {{ .Chart.AppVersion }}
 
 Complete your Gitlab Runner deployment by running:
 
-  helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://registry-1.docker.io/bitnamicharts/gitlab-runner \
+  helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://MY-OCI-REGISTRY/gitlab-runner \
     --set gitlabUrl=YOUR_GITLAB_HOST,runnerToken=YOUR_RUNNER_TOKEN
 
 Replacing "YOUR_GITLAB_HOST" and "YOUR_RUNNER_TOKEN" placeholders by the proper values of your Gitlab deployment.
 
 or
 
-helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://registry-1.docker.io/bitnamicharts/gitlab-runner \
+helm upgrade --namespace {{ include "common.names.namespace" . }} {{ .Release.Name }} oci://MY-OCI-REGISTRY/gitlab-runner \
 --set gitlabUrl=YOUR_GITLAB_HOST,existingSecret=YOUR_SECRET
 
 Replacing "YOUR_GITLAB_HOST" and "YOUR_SECRET" placeholders by the proper values of your Gitlab deployment.
