@@ -764,6 +764,10 @@ Find more information about how to deal with common errors related to Bitnami's 
 
 ## Upgrading
 
+### To 8.0.0
+
+This major updates the MongoDB&reg; subchart to its newest major, [18.0.0](https://github.com/bitnami/charts/tree/main/bitnami/mongodb#to-1800). To upgrade to MongoDB `8.2` from a `8.0` deployment, the `8.0` deployment must have `featureCompatibilityVersion` set to `8.0`. Please refer to the [official documentation](https://www.mongodb.com/docs/manual/release-notes/8.2/#upgrade-procedures).
+
 ### To 7.0.0
 
 This major updates the Redis&reg; subchart to its newest major, 22.0.0, which updates Redis&reg; from 8.0 to 8.2. [Here](https://redis.io/docs/latest/operate/oss_and_stack/install/upgrade/cluster/) you can find more information about the changes introduced in that version. No major issues are expected during the upgrade.
