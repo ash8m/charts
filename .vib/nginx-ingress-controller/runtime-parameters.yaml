@@ -54,15 +54,11 @@ extraDeploy:
           app: dokuwiki
       spec:
         containers:
-        # Use the most recent Dokuwiki image available at https://hub.docker.com/r/bitnami/dokuwiki-archived/tags
-        - image: docker.io/bitnami/dokuwiki-archived@sha256:f7be2f151520663fcba4e431b7130f3a9594f08070b3f750526c93d9cd80a1c7
+        - image: docker.io/dokuwiki/dokuwiki:latest
           name: dokuwiki
           securityContext:
-            runAsNonRoot: true
             privileged: false
             allowPrivilegeEscalation: false
-            capabilities:
-              drop: ["ALL"]
             seccompProfile:
               type: "RuntimeDefault"
 - apiVersion: v1
