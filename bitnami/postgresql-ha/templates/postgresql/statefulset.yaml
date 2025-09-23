@@ -379,6 +379,8 @@ spec:
             - name: POSTGRESQL_SYNCHRONOUS_REPLICAS_MODE
               value: {{ .Values.postgresql.syncReplicationMode | quote }}
             {{- end }}
+            - name: REPMGR_DEGRADED_MONITORING_TIMEOUT
+              value: {{ .Values.postgresql.preStopDelayAfterPgStopSeconds | quote }}
             - name: POSTGRESQL_SR_CHECK
               value: "yes"
             - name: POSTGRESQL_SR_CHECK_USERNAME
