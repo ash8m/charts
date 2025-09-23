@@ -5,7 +5,7 @@ annotations:
   images: |
     - name: kong
       version: 3.9.1
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kong:3.9.1-debian-12-r13
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kong:3.9.1-debian-12-r14
     - name: kong-ingress-controller
       version: 3.5.1
       image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/kong-ingress-controller:3.5.1-debian-12-r5
@@ -47,4 +47,4 @@ maintainers:
 name: kong
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/kong
-version: 15.4.27
+version: 15.4.28
