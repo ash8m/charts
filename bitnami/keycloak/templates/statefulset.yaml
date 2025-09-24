@@ -130,13 +130,14 @@ spec:
                 secretKeyRef:
                   name: {{ include "keycloak.secretName" . }}
                   key: {{ include "keycloak.secretKey" . }}
-            - name: KC_DB_PASSWORD
+            {{- $dbEnvVarsPrefix := ternary "KC_DB" "KEYCLOAK_DATABASE" .Values.nativeEnvVars }}
+            - name: {{ $dbEnvVarsPrefix }}_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ include "keycloak.database.secretName" . }}
                   key: {{ include "keycloak.database.secretPasswordKey" . }}
             {{- if .Values.externalDatabase.existingSecretUserKey }}
-            - name: KC_DB_USERNAME
+            - name: {{ $dbEnvVarsPrefix }}_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: {{ include "keycloak.database.secretName" . }}

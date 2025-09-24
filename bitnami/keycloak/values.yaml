@@ -129,6 +129,10 @@ auth:
 ## @param production Run Keycloak in production mode. TLS configuration is required except when using proxy headers
 ##
 production: false
+## @param nativeEnvVars Use environment variables compatible with the native distribution of Keycloak
+## Set it to 'false' for old Keycloak container images (before changes introduced at https://github.com/bitnami/containers/commit/e0a9851464ccad03c8a5315edd2fe3a618b8b103)
+##
+nativeEnvVars: true
 ## HTTPS settings
 ##
 ## @param tls.enabled Enable TLS in Keycloak
