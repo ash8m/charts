@@ -4,11 +4,14 @@
 annotations:
   images: |
     - name: jmx-exporter
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/jmx-exporter:1.4.0-debian-12-r0
+      version: 1.4.0
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/jmx-exporter:1.4.0-debian-12-r1
     - name: os-shell
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/os-shell:12-debian-12-r51
+      version: "12"
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/os-shell:12-debian-12-r52
     - name: sonarqube
-      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/sonarqube:25.9.0-debian-12-r0
+      version: 25.9.0
+      image: registry.app-catalog.vmware.com/eam/prd/containers/verified/common/minideb-bookworm/sonarqube:25.9.0-debian-12-r2
   licenses: Apache-2.0
   tanzuCategory: application
 apiVersion: v2
@@ -39,4 +42,4 @@ maintainers:
 name: sonarqube
 sources:
 - https://github.com/bitnami/charts/tree/main/bitnami/sonarqube
-version: 8.1.20
+version: 8.1.21
