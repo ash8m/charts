@@ -1039,6 +1039,10 @@ service_registration "kubernetes" {}` |
 
 ## Upgrading
 
+### To 5.0.0
+
+This major updates the PostgreSQL subchart to its newest major, 18.0.0. Follow the [official instructions](https://www.postgresql.org/docs/18/upgrading.html) to upgrade to 18.x.
+
 ### To 3.0.0
 
 This version increases minimum Kubernetes version to 1.23. Follow the [official docs](https://kubernetes.io/docs/tasks/administer-cluster/cluster-upgrade/) to upgrade your Kubernetes cluster. If the Kubernetes version is already >=1.23 no major issues are expected during the upgrade operation.
